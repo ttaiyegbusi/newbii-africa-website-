@@ -1,0 +1,49 @@
+:root {
+  /* ---- Core brand palette ---- */
+  --newbii-navy: #00063a;
+  --newbii-navy-deep: #000533;
+  --newbii-panel: #1b1f4d;
+  --newbii-panel-soft: #242958;
+  --newbii-blue: #3b68ff;
+  --newbii-blue-soft: #597eff;
+  --newbii-white: #fbfbf8;
+  --newbii-muted: #8d91aa;
+  --newbii-line: rgba(255, 255, 255, 0.15);
+
+  /* ---- Accent / geometric shapes ---- */
+  --newbii-orange: #ff8a00;
+  --newbii-pink: #ff9bea;
+  --newbii-yellow: #ffd044;
+  --newbii-purple: #c7a4ff;
+  --newbii-cyan: #40d7e8;
+  --newbii-mint: #9fffd7;
+  --newbii-lime: #a8ff3e;
+  --newbii-light-blue: #c7efff;
+  --newbii-cream: #ffe3c7;
+
+  /* ---- Event / panel solids ---- */
+  --newbii-magenta: #6d0f3f;
+  --newbii-card-cyan: #7fd0f7;
+  --newbii-card-mint: #8ff2c0;
+  --newbii-card-yellow: #ffe08a;
+  --newbii-card-pink: #ff9bea;
+
+  /* ---- Typography ---- */
+  --font-body:
+    'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  --font-display:
+    'Anton', 'Arial Narrow', 'Helvetica Neue Condensed', 'Impact', sans-serif;
+
+  /* ---- Layout ---- */
+  --container-max: 1000px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* ---- Radii ---- */
+  --radius-panel: 32px;
+  --radius-card: 24px;
+  --radius-pill: 999px;
+
+  /* ---- Motion ---- */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal: 640ms;
+}

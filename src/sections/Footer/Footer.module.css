@@ -1,0 +1,148 @@
+.footer {
+  background: var(--newbii-navy-deep);
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: repeat(3, auto) 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.colHeading {
+  font-size: 1.25rem;
+  color: var(--newbii-white);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+.col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.col a {
+  color: var(--newbii-muted);
+  font-size: 1.05rem;
+  transition: color 160ms ease;
+}
+
+.col a:hover {
+  color: var(--newbii-white);
+}
+
+/* ---- Newsletter ---- */
+.newsletter {
+  max-width: 460px;
+  justify-self: end;
+  width: 100%;
+  text-align: right;
+}
+
+.newsletterText {
+  color: var(--newbii-muted);
+  margin-bottom: 1.25rem;
+}
+
+.form {
+  text-align: left;
+}
+
+.inputShell {
+  display: flex;
+  align-items: center;
+  background: var(--newbii-white);
+  border-radius: var(--radius-pill);
+  padding: 0.4rem 0.4rem 0.4rem 1.4rem;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--newbii-navy);
+  font-size: 1rem;
+  min-width: 0;
+}
+
+.subscribe {
+  flex-shrink: 0;
+  background: var(--newbii-blue);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.6rem;
+  font-weight: 600;
+  transition: background 160ms ease;
+}
+
+.subscribe:hover {
+  background: var(--newbii-blue-soft);
+}
+
+.privacy {
+  margin-top: 0.9rem;
+  color: var(--newbii-muted);
+  font-size: 0.85rem;
+}
+
+/* ---- Divider + socials ---- */
+.divider {
+  border: none;
+  border-top: 1px solid var(--newbii-line);
+  margin: clamp(2.5rem, 5vw, 4rem) 0;
+}
+
+.socialRow {
+  display: flex;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  justify-content: center;
+}
+
+.tile {
+  display: grid;
+  place-items: center;
+  width: clamp(80px, 11vw, 150px);
+  aspect-ratio: 1;
+  background: var(--newbii-blue);
+  border: 5px solid var(--newbii-white);
+  border-radius: 30px;
+  color: #fff;
+  margin-inline: -6px;
+  transition: box-shadow 200ms ease;
+}
+
+.tile:hover {
+  box-shadow: 0 16px 30px -16px rgba(0, 0, 0, 0.7);
+}
+
+.tileIcon {
+  width: 48%;
+  height: 48%;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .newsletter {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    max-width: none;
+    text-align: left;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .top {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tile {
+    border-width: 4px;
+    border-radius: 22px;
+  }
+}

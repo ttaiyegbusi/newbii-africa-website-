@@ -1,0 +1,235 @@
+.hero {
+  position: relative;
+  background: var(--newbii-navy);
+  padding-top: clamp(2rem, 4vw, 4.5rem);
+  padding-bottom: clamp(3rem, 6vw, 7rem);
+  overflow: hidden;
+}
+
+/* Hero content lives in a fixed ~1000px centered column. */
+.inner {
+  max-width: 1000px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  position: relative;
+  z-index: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: center;
+  min-height: min(78vh, 640px);
+}
+
+/* ---- Left copy ---- */
+.copy {
+  max-width: 100%;
+  padding-block: 0.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--newbii-panel-soft);
+  color: var(--newbii-white);
+  border-radius: var(--radius-pill);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.6rem;
+}
+
+.heading {
+  font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.4rem;
+  /* Guarantee the exact designed line breaks on desktop; the <br>s handle the
+     structure and nowrap prevents any single line from re-wrapping. */
+  white-space: nowrap;
+}
+
+.body {
+  color: #c4c7dd;
+  font-size: clamp(0.98rem, 1.05vw, 1.08rem);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  max-width: 100%;
+  margin-bottom: 1.9rem;
+}
+
+.ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ---- Right media ---- */
+.media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 420px;
+}
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 340px);
+  margin-top: 1rem;
+  /* The supplied PNG has a ~2px white frame baked into its edges. Clip it off
+     by rounding + hiding overflow and scaling the image up slightly so that
+     white line falls outside the visible area — no "weird line" remains. */
+  overflow: hidden;
+  border-radius: 30px;
+  box-shadow: 0 26px 50px -22px rgba(0, 0, 0, 0.5);
+}
+
+.card img {
+  display: block;
+  width: calc(100% + 28px);
+  max-width: none;
+  height: auto;
+  /* pull the baked white frame (~9px in) out past the clip on every edge */
+  margin: -14px;
+}
+
+/* ---- Audience pills ---- */
+.audience {
+  position: absolute;
+  top: -3rem;
+  right: -0.5rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: flex-end;
+}
+
+.audiencePill {
+  min-width: 150px;
+  text-align: center;
+  padding: 0.8rem 1.3rem;
+  border-radius: var(--radius-pill);
+  background: var(--newbii-panel);
+  color: #6f74a0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.audiencePill:hover {
+  transform: translateY(-1px);
+  color: #aab0d8;
+}
+
+.audienceActive {
+  color: #7f84b4;
+}
+
+/* ---- Shape cluster (bleeds to the bottom-right of the image) ---- */
+.shapes {
+  position: absolute;
+  right: -32%;
+  bottom: -16%;
+  width: 300px;
+  height: 250px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shapes > div {
+  position: absolute;
+}
+
+.shapeDiamond {
+  width: 128px;
+  right: 138px;
+  bottom: 6px;
+}
+.shapeArch {
+  width: 104px;
+  right: 30px;
+  bottom: -18px;
+}
+.shapePink {
+  width: 128px;
+  right: 46px;
+  bottom: 34px;
+}
+.shapeStar {
+  width: 128px;
+  right: -44px;
+  bottom: 52px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    min-height: 0;
+  }
+  .copy {
+    max-width: 640px;
+  }
+  .media {
+    min-height: 560px;
+    justify-content: flex-start;
+  }
+  .audience {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .audiencePill {
+    min-width: 0;
+    font-size: 1rem;
+    padding: 0.7rem 1.4rem;
+  }
+  .shapes {
+    right: -4%;
+    width: 260px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 560px) {
+  .heading {
+    white-space: normal;
+  }
+  .card {
+    width: 100%;
+  }
+  .ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .shapes {
+    width: 180px;
+    height: 170px;
+    right: -8%;
+    bottom: -4%;
+  }
+  .shapeDiamond {
+    width: 90px;
+    right: 90px;
+  }
+  .shapeArch {
+    width: 74px;
+  }
+  .shapePink {
+    width: 92px;
+    right: 30px;
+  }
+  .shapeStar {
+    width: 92px;
+    right: -20px;
+  }
+}

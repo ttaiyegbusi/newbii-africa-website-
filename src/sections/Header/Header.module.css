@@ -1,0 +1,135 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(0, 6, 58, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.inner {
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 1.15rem var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.wordmark {
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -0.03em;
+  color: var(--newbii-white);
+  flex-shrink: 0;
+}
+
+.nav {
+  flex: 1;
+}
+
+.nav ul {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.nav a {
+  color: var(--newbii-muted);
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: color 160ms ease;
+}
+
+.nav a:hover {
+  color: var(--newbii-white);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.joinBtn {
+  padding-inline: 2.4rem;
+}
+
+/* ---- Burger (mobile only) ---- */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.burger span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background: var(--newbii-white);
+  border-radius: 2px;
+  transition: transform 220ms var(--ease-premium), opacity 160ms ease;
+}
+
+.barTop {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.barMid {
+  opacity: 0;
+}
+.barBot {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+.mobileMenu {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav,
+  .joinBtn {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: block;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 300ms var(--ease-premium), opacity 200ms ease;
+    border-top: 1px solid var(--newbii-line);
+  }
+
+  .mobileOpen {
+    max-height: 80vh;
+    opacity: 1;
+  }
+
+  .mobileMenu nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem var(--gutter);
+  }
+
+  .mobileMenu nav a {
+    display: block;
+    padding: 0.9rem 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--newbii-white);
+  }
+
+  .mobileJoin {
+    margin: 0 var(--gutter) 1.5rem;
+    width: calc(100% - 2 * var(--gutter));
+  }
+}

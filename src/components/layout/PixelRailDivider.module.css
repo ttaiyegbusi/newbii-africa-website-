@@ -1,0 +1,50 @@
+.rail {
+  --tooth-w: 46px;
+  --band-h: 46%;
+  width: 100%;
+  height: clamp(38px, 3.4vw, 62px);
+  background-color: var(--rail-gap);
+  background-repeat: no-repeat, repeat-x;
+  position: relative;
+  z-index: 2;
+}
+
+/* teeth point DOWN: solid blue band on top, square teeth biting into navy below */
+.down {
+  background-image:
+    linear-gradient(var(--rail-color), var(--rail-color)),
+    repeating-linear-gradient(
+      to right,
+      var(--rail-color) 0 var(--tooth-w),
+      transparent var(--tooth-w) calc(2 * var(--tooth-w))
+    );
+  background-size:
+    100% var(--band-h),
+    calc(2 * var(--tooth-w)) 100%;
+  background-position:
+    top,
+    bottom;
+}
+
+/* teeth point UP: solid blue band on bottom, square teeth rising out of navy above */
+.up {
+  background-image:
+    linear-gradient(var(--rail-color), var(--rail-color)),
+    repeating-linear-gradient(
+      to right,
+      var(--rail-color) 0 var(--tooth-w),
+      transparent var(--tooth-w) calc(2 * var(--tooth-w))
+    );
+  background-size:
+    100% var(--band-h),
+    calc(2 * var(--tooth-w)) 100%;
+  background-position:
+    bottom,
+    top;
+}
+
+@media (max-width: 640px) {
+  .rail {
+    --tooth-w: 30px;
+  }
+}

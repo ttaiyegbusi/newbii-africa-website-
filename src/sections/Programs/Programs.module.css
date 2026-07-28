@@ -1,0 +1,81 @@
+.section {
+  background: var(--newbii-navy);
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+  overflow: hidden;
+}
+
+.head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto clamp(3rem, 6vw, 5rem);
+}
+
+.motif {
+  margin: 0 auto 1.75rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  margin-bottom: 1.25rem;
+}
+
+.sub {
+  color: #c4c7dd;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.5;
+}
+
+/* ---- Deck ---- */
+.deck {
+  position: relative;
+  width: min(100%, 470px);
+  aspect-ratio: 1 / 1.05;
+  margin: 0 auto;
+}
+
+.deckCard {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  transition: transform 260ms var(--ease-premium);
+}
+
+.back1 {
+  background: var(--newbii-card-yellow);
+}
+.back2 {
+  background: var(--newbii-card-mint);
+}
+
+.front {
+  position: relative;
+  overflow: hidden;
+  background: var(--newbii-card-cyan);
+  padding: clamp(2rem, 4vw, 3.2rem);
+  z-index: 3;
+  box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.5);
+}
+
+.frontTitle {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  color: #0d5a78;
+  transform: rotate(-3deg);
+  margin-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.frontBody {
+  color: #0d5a78;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.5;
+  transform: rotate(-3deg);
+  max-width: 22rem;
+}
+
+/* Hover separates the deck */
+.deck:hover .back1 {
+  transform: rotate(9deg) translate(10px, -6px);
+}
+.deck:hover .back2 {
+  transform: rotate(-11deg) translate(-10px, -6px);
+}

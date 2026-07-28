@@ -1,0 +1,106 @@
+.section {
+  position: relative;
+  background: var(--newbii-blue);
+  padding-block: clamp(4rem, 9vw, 8rem);
+  overflow: hidden;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 10%;
+  width: 60%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.14), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.heading {
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  line-height: 1.02;
+  margin-bottom: 1.5rem;
+}
+
+.body {
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.94);
+  margin-bottom: 2.2rem;
+  max-width: 460px;
+}
+
+/* ---- Shape cluster ---- */
+.shapes {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(55%, 720px);
+  height: 78%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.shapes > div {
+  position: absolute;
+}
+
+.sCyanRing {
+  width: 150px;
+  left: 4%;
+  bottom: 0;
+}
+.sOrange {
+  width: 150px;
+  left: 22%;
+  bottom: -6%;
+}
+.sPink {
+  width: 190px;
+  left: 40%;
+  bottom: 2%;
+}
+.sYellow {
+  width: 160px;
+  left: 60%;
+  bottom: -4%;
+}
+.sPurple {
+  width: 170px;
+  left: 70%;
+  top: 6%;
+}
+.sPentagon {
+  width: 170px;
+  left: 54%;
+  top: -6%;
+}
+.sGreen {
+  width: 150px;
+  right: 2%;
+  bottom: 8%;
+}
+
+@media (max-width: 900px) {
+  .shapes {
+    width: 90%;
+    height: 42%;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 560px) {
+  .shapes {
+    height: 34%;
+  }
+  .sPurple,
+  .sPentagon {
+    display: none;
+  }
+}

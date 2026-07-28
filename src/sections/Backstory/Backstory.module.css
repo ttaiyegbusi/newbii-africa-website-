@@ -1,0 +1,128 @@
+.section {
+  background: var(--newbii-navy);
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.copy {
+  max-width: 560px;
+}
+
+.dots {
+  margin-bottom: 2rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  line-height: 1.0;
+  margin-bottom: 1.8rem;
+}
+
+.body {
+  color: #c4c7dd;
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  line-height: 1.5;
+}
+
+/* ---- Globe ---- */
+.graphic {
+  display: flex;
+  justify-content: center;
+}
+
+.globeWrap {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 1;
+}
+
+.globeSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.orbitDotted {
+  fill: none;
+  stroke: var(--newbii-blue-soft);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 8;
+  opacity: 0.55;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+}
+
+.node {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.nodePink {
+  background: var(--newbii-pink);
+}
+.nodeOrange {
+  background: var(--newbii-orange);
+  border-radius: 4px;
+  clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+}
+.nodePurple {
+  background: var(--newbii-purple);
+}
+.nodeYellow {
+  background: var(--newbii-yellow);
+  clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+}
+
+.chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--newbii-navy);
+  border: 1.5px solid var(--newbii-line);
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--newbii-white);
+  white-space: nowrap;
+  z-index: 3;
+}
+
+.chipLeft {
+  top: 47%;
+  left: -6%;
+}
+.chipRight {
+  top: 38%;
+  right: -10%;
+  border-color: var(--newbii-yellow);
+  color: var(--newbii-yellow);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .copy {
+    max-width: 640px;
+  }
+  .globeWrap {
+    margin-inline: auto;
+    width: min(100%, 420px);
+  }
+}

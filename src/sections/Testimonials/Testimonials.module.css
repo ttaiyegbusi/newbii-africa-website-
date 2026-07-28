@@ -1,0 +1,159 @@
+.section {
+  position: relative;
+  background: var(--newbii-blue);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  overflow: hidden;
+}
+
+.head {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  position: relative;
+  z-index: 1;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.0;
+  margin-bottom: 1.25rem;
+}
+
+.sub {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ---- Rows ---- */
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+  width: max-content;
+  will-change: transform;
+}
+
+.trackLeft {
+  animation: scrollLeft var(--marquee-duration) linear infinite;
+}
+
+.trackRight {
+  animation: scrollRight var(--marquee-duration) linear infinite;
+}
+
+/* Pause on hover / keyboard focus */
+.marquee:hover .track,
+.marquee:focus-within .track {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ---- Card ---- */
+.card {
+  flex: 0 0 auto;
+  width: clamp(300px, 30vw, 440px);
+  background: var(--newbii-navy-deep);
+  border-radius: 18px;
+  padding: 1.6rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--newbii-white);
+}
+
+.flag {
+  font-size: 1.3rem;
+}
+
+.rule {
+  border: none;
+  border-top: 1px solid var(--newbii-line);
+  margin: 1rem 0;
+}
+
+.quote {
+  color: #c9ccdf;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.role {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--newbii-white);
+}
+
+.social {
+  width: 22px;
+  height: 22px;
+  color: var(--newbii-white);
+}
+
+/* ---- Reduced motion: no autoplay, manual horizontal scroll ---- */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+  }
+  .track {
+    animation: none !important;
+  }
+  .card {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    width: 82vw;
+  }
+}
