@@ -6,9 +6,9 @@
   overflow: hidden;
 }
 
-/* Hero content lives in a fixed ~1000px centered column. */
+/* Hero content shares the page's centered column (1000px, wider on big screens). */
 .inner {
-  max-width: 1000px;
+  max-width: var(--container-max);
   margin-inline: auto;
   padding-inline: var(--gutter);
   position: relative;
@@ -130,6 +130,16 @@
 
 .audienceActive {
   color: #7f84b4;
+}
+
+/* ---- Large screens: enlarge the media column to balance the wider container ---- */
+@media (min-width: 1600px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) 380px;
+  }
+  .card {
+    width: min(100%, 380px);
+  }
 }
 
 /* ---- Responsive ---- */

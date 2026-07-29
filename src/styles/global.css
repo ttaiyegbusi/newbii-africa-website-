@@ -135,3 +135,21 @@ h4 {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---- Large screens: scale the design up proportionally ----
+   Bumping the root font-size grows every rem-based size (type + spacing),
+   and the wider container gives that larger content room to breathe, so the
+   page fills big monitors instead of sitting as a narrow centered strip. */
+@media (min-width: 1600px) {
+  :root {
+    font-size: 17px;
+    --container-max: 1140px;
+  }
+}
+
+@media (min-width: 2000px) {
+  :root {
+    font-size: 18px;
+    --container-max: 1260px;
+  }
+}

@@ -8,7 +8,7 @@
 }
 
 .inner {
-  max-width: 1000px;
+  max-width: var(--container-max);
   margin-inline: auto;
   padding: 1.15rem var(--gutter);
   display: flex;
