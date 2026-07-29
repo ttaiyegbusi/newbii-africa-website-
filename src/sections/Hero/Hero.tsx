@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { staggerParent, staggerChild, EASE_PREMIUM, QA, qaInitial } from '@/lib/motion';
 import { AudiencePills } from './AudiencePills';
-import { HeroShapeCluster } from './HeroShapeCluster';
+import { HeroPhysics } from './HeroPhysics';
 import styles from './Hero.module.css';
 
 // Served from /public — referenced by URL, not imported.
@@ -65,11 +65,12 @@ export function Hero() {
                 height={980}
               />
             </motion.div>
-
-            <HeroShapeCluster />
           </div>
         </div>
       </div>
+
+      {/* Physics sandbox — the four brand shapes drop in and can be tossed around. */}
+      <HeroPhysics />
     </section>
   );
 }

@@ -1,37 +1,34 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useReducedMotion } from './useReducedMotion';
 
 interface CountUpOptions {
-  /** Whether the count-up should run (e.g. section is in view). */
+  /** While true, the value animates 0 → target; while false it shows target. */
   active: boolean;
   duration?: number;
 }
 
 /**
- * Animates an integer from 0 up to `target` once `active` becomes true.
- * Honours reduced-motion by jumping straight to the final value.
+ * Counts an integer up to `target`. Every time `active` flips to true the
+ * animation restarts from 0; when inactive it shows the final value. Honours
+ * reduced-motion by pinning to the final value.
  */
-export function useCountUp(target: number, { active, duration = 1600 }: CountUpOptions): number {
+export function useCountUp(target: number, { active, duration = 1400 }: CountUpOptions): number {
   const reduced = useReducedMotion();
-  const [value, setValue] = useState(0);
-  const startedRef = useRef(false);
+  const [value, setValue] = useState(target);
 
   useEffect(() => {
-    if (!active || startedRef.current) return;
-    startedRef.current = true;
-
-    if (reduced) {
+    if (reduced || !active) {
       setValue(target);
       return;
     }
 
     let raf = 0;
     const start = performance.now();
+    setValue(0);
 
     const tick = (now: number) => {
       const progress = Math.min((now - start) / duration, 1);
-      // easeOutCubic
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
       setValue(Math.round(eased * target));
       if (progress < 1) raf = requestAnimationFrame(tick);
     };

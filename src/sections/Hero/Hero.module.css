@@ -132,42 +132,6 @@
   color: #7f84b4;
 }
 
-/* ---- Shape cluster (bleeds to the bottom-right of the image) ---- */
-.shapes {
-  position: absolute;
-  right: -32%;
-  bottom: -16%;
-  width: 300px;
-  height: 250px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.shapes > div {
-  position: absolute;
-}
-
-.shapeDiamond {
-  width: 128px;
-  right: 138px;
-  bottom: 6px;
-}
-.shapeArch {
-  width: 104px;
-  right: 30px;
-  bottom: -18px;
-}
-.shapePink {
-  width: 128px;
-  right: 46px;
-  bottom: 34px;
-}
-.shapeStar {
-  width: 128px;
-  right: -44px;
-  bottom: 52px;
-}
-
 /* ---- Responsive ---- */
 @media (max-width: 1024px) {
   .grid {
@@ -193,11 +157,6 @@
     font-size: 1rem;
     padding: 0.7rem 1.4rem;
   }
-  .shapes {
-    right: -4%;
-    width: 260px;
-    height: 240px;
-  }
 }
 
 @media (max-width: 560px) {
@@ -210,26 +169,5 @@
   .ctas {
     flex-direction: column;
     align-items: stretch;
-  }
-  .shapes {
-    width: 180px;
-    height: 170px;
-    right: -8%;
-    bottom: -4%;
-  }
-  .shapeDiamond {
-    width: 90px;
-    right: 90px;
-  }
-  .shapeArch {
-    width: 74px;
-  }
-  .shapePink {
-    width: 92px;
-    right: 30px;
-  }
-  .shapeStar {
-    width: 92px;
-    right: -20px;
   }
 }

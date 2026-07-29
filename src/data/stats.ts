@@ -7,7 +7,8 @@ export interface Stat {
   label: string;
   /** Optional flag emoji cluster shown above the number (stat 03). */
   flags?: string[];
-  highlight?: boolean;
+  /** Set false to render without a thousands separator (e.g. 4800, not 4,800). */
+  grouping?: boolean;
 }
 
 export const stats: Stat[] = [
@@ -19,8 +20,7 @@ export const stats: Stat[] = [
     suffix: '+',
     label: 'Countries & cities',
     flags: ['🇳🇬', '🇰🇪', '🇿🇦', '🇬🇭'],
-    highlight: true,
   },
   { index: '04', value: 50, suffix: '+', label: 'Mentors & Speakers' },
-  { index: '05', value: 4800, suffix: '+', label: 'Career switches supported' },
+  { index: '05', value: 4800, suffix: '+', label: 'Career switches supported', grouping: false },
 ];

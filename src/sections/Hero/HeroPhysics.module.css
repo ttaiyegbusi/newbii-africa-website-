@@ -1,0 +1,51 @@
+/* Play zone overlays the whole hero. It never blocks clicks — only the shapes
+   themselves are interactive. */
+.zone {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+.shape img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+/* ---- Reduced-motion: static bottom-right cluster, no physics ---- */
+.static_star {
+  cursor: default;
+  transform: translate(calc(70% + 320px), 300px);
+}
+.static_circle {
+  cursor: default;
+  transform: translate(calc(70% + 430px), 360px);
+}
+.static_rectangle {
+  cursor: default;
+  transform: translate(calc(70% + 380px), 250px);
+}
+.static_light {
+  cursor: default;
+  transform: translate(calc(70% + 470px), 210px);
+}
