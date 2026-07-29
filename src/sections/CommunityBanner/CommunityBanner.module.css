@@ -89,18 +89,50 @@
 
 @media (max-width: 900px) {
   .shapes {
-    width: 90%;
-    height: 42%;
+    width: 92%;
+    height: 40%;
     opacity: 0.9;
   }
 }
 
+/* On phones the shapes become a decorative band pinned to the very bottom,
+   below the copy (extra bottom padding keeps the CTA clear of them). */
 @media (max-width: 560px) {
+  .section {
+    padding-bottom: 8.5rem;
+  }
+  .content {
+    max-width: 100%;
+  }
   .shapes {
-    height: 34%;
+    width: 100%;
+    height: 120px;
+    right: 0;
+    bottom: 0;
+    opacity: 0.95;
   }
   .sPurple,
   .sPentagon {
     display: none;
+  }
+  .sCyanRing {
+    width: 74px;
+    left: 2%;
+  }
+  .sOrange {
+    width: 74px;
+    left: 22%;
+  }
+  .sPink {
+    width: 94px;
+    left: 40%;
+  }
+  .sYellow {
+    width: 82px;
+    left: 62%;
+  }
+  .sGreen {
+    width: 74px;
+    right: 2%;
   }
 }
