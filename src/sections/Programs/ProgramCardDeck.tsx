@@ -1,46 +1,47 @@
-import { motion } from 'framer-motion';
-import { inViewOnce, EASE_PREMIUM, qaInitial } from '@/lib/motion';
+import { motion, type Variants } from 'framer-motion';
+import { programs } from '@/data/programs';
+import { EASE_PREMIUM, QA } from '@/lib/motion';
 import styles from './Programs.module.css';
 
 /**
- * A layered deck of three cards. The front (cyan) card carries the readable
- * "OUTREACHES" content; the back cards are decorative and settle in with a
- * slight rotation. Hovering separates the deck.
+ * A neat stack of three program cards that fans out into a spread when the
+ * section scrolls into view (each card slides to its offset and settles at a
+ * slight rotation). On small screens the cards simply stack in normal flow.
  */
 export function ProgramCardDeck() {
   return (
-    <div className={styles.deck}>
-      <motion.div
-        className={`${styles.deckCard} ${styles.back2}`}
-        initial={qaInitial({ opacity: 0, y: 40, rotate: 0 })}
-        whileInView={{ opacity: 1, y: 0, rotate: -7 }}
-        viewport={inViewOnce}
-        transition={{ duration: 0.6, ease: EASE_PREMIUM }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className={`${styles.deckCard} ${styles.back1}`}
-        initial={qaInitial({ opacity: 0, y: 40, rotate: 0 })}
-        whileInView={{ opacity: 1, y: 0, rotate: 5 }}
-        viewport={inViewOnce}
-        transition={{ duration: 0.6, ease: EASE_PREMIUM, delay: 0.08 }}
-        aria-hidden="true"
-      />
-
-      <motion.article
-        className={`${styles.deckCard} ${styles.front} texture texture--onBlue`}
-        initial={qaInitial({ opacity: 0, y: 40 })}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={inViewOnce}
-        transition={{ duration: 0.6, ease: EASE_PREMIUM, delay: 0.16 }}
-      >
-        <h3 className={`display ${styles.frontTitle}`}>Outreaches</h3>
-        <p className={styles.frontBody}>
-          We bring opportunities closer to aspiring tech professionals. Through campus visits,
-          community events, and local partnerships, we introduce more people to careers in tech and
-          provide the guidance, encouragement, and resources they need to get started.
-        </p>
-      </motion.article>
-    </div>
+    <motion.div
+      className={styles.deck}
+      initial={QA ? 'fanned' : 'stacked'}
+      whileInView="fanned"
+      viewport={{ once: true, amount: 0.4 }}
+      variants={{ fanned: { transition: { staggerChildren: 0.09 } } }}
+    >
+      {programs.map((p, i) => {
+        const variants: Variants = {
+          // start collapsed into a tidy centre stack
+          stacked: { x: 0, y: 0, rotate: (i - 1) * 3, opacity: 1 },
+          // fan out to the designed position + tilt
+          fanned: {
+            x: p.x,
+            y: p.y,
+            rotate: p.rotate,
+            opacity: 1,
+            transition: { duration: 0.7, ease: EASE_PREMIUM },
+          },
+        };
+        return (
+          <motion.article
+            key={p.title}
+            className={`${styles.card} texture texture--onBlue`}
+            style={{ background: p.bg, color: p.ink, zIndex: p.z }}
+            variants={variants}
+          >
+            <h3 className={`display ${styles.cardTitle}`}>{p.title}</h3>
+            <p className={styles.cardBody}>{p.body}</p>
+          </motion.article>
+        );
+      })}
+    </motion.div>
   );
 }

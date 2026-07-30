@@ -25,57 +25,58 @@
   line-height: 1.5;
 }
 
-/* ---- Deck ---- */
+/* ---- Fanning deck ---- */
 .deck {
   position: relative;
-  width: min(100%, 470px);
-  aspect-ratio: 1 / 1.05;
+  height: 420px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
-.deckCard {
+.card {
   position: absolute;
-  inset: 0;
-  border-radius: 30px;
-  transition: transform 260ms var(--ease-premium);
-}
-
-.back1 {
-  background: var(--newbii-card-yellow);
-}
-.back2 {
-  background: var(--newbii-card-mint);
-}
-
-.front {
-  position: relative;
+  top: 30px;
+  left: calc(50% - 150px);
+  width: 300px;
+  min-height: 352px;
+  padding: clamp(1.7rem, 2.2vw, 2.3rem);
+  border-radius: 28px;
   overflow: hidden;
-  background: var(--newbii-card-cyan);
-  padding: clamp(2rem, 4vw, 3.2rem);
-  z-index: 3;
-  box-shadow: 0 30px 50px -30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 45px -26px rgba(0, 0, 0, 0.55);
 }
 
-.frontTitle {
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  color: #0d5a78;
-  transform: rotate(-3deg);
-  margin-bottom: clamp(3rem, 8vw, 6rem);
+.cardTitle {
+  font-size: clamp(2.1rem, 2.8vw, 2.7rem);
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 
-.frontBody {
-  color: #0d5a78;
+.cardBody {
   font-weight: 500;
-  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-size: 0.95rem;
   line-height: 1.5;
-  transform: rotate(-3deg);
-  max-width: 22rem;
+  margin-top: auto;
 }
 
-/* Hover separates the deck */
-.deck:hover .back1 {
-  transform: rotate(9deg) translate(10px, -6px);
-}
-.deck:hover .back2 {
-  transform: rotate(-11deg) translate(-10px, -6px);
+/* Small screens: forget the fan, stack the cards in normal flow.
+   (transform:none overrides Framer's inline transform.) */
+@media (max-width: 899px) {
+  .deck {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 420px;
+  }
+  .card {
+    position: static !important;
+    transform: none !important;
+    left: auto;
+    top: auto;
+    width: 100%;
+    min-height: 0;
+  }
 }
