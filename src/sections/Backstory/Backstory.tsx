@@ -15,13 +15,9 @@ export function Backstory() {
               You have all the tutorials. So why does it still feel this hard?
             </h2>
             <p className={styles.body}>
-              There has never been more to learn from. Free courses, YouTube, bootcamps, that one
-              viral thread swearing it will change your life in thirty days. And still, so many
-              brilliant people get stuck. Not because they stopped trying. Because trying on your own
-              is just plain exhausting. Nobody warns you that the hardest part of getting into tech
-              isn&apos;t the code. It&apos;s doing it with no one beside you. No one to ask &ldquo;is
-              this normal?&rdquo; No one to say &ldquo;keep going, you&apos;re closer than you
-              think.&rdquo; That&apos;s the whole reason we&apos;re here.
+              The internet is full of courses and tutorials, but the hardest part of getting into
+              tech isn&apos;t finding resources. It&apos;s doing it alone. Everyone needs guidance,
+              support, and a community that believes in them. That&apos;s exactly why we&apos;re here.
             </p>
           </Reveal>
 

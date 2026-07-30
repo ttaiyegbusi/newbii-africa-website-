@@ -1,59 +1,160 @@
-import { motion } from 'framer-motion';
+import { useCallback, useEffect, useMemo, useRef, type PointerEvent as ReactPointerEvent } from 'react';
+import { geoOrthographic, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
+import land110m from 'world-atlas/land-110m.json';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import styles from './Backstory.module.css';
 
+const CX = 260;
+const CY = 260;
+const R = 112;
+
+/** Pentagon points (radius 11) centred at the origin, for decorative nodes. */
+const PENT = '0,-11 10.5,-3.4 6.5,8.9 -6.5,8.9 -10.5,-3.4';
+
+interface Node {
+  angle: number; // degrees around the globe
+  radius: number; // distance from centre
+  shape: 'pentagon' | 'circle';
+  color: string;
+}
+
+// Decorative nodes scattered on the orbit rings (they rotate as a group).
+const NODES: Node[] = [
+  { angle: 118, radius: 205, shape: 'pentagon', color: 'var(--newbii-orange)' },
+  { angle: 74, radius: 250, shape: 'pentagon', color: 'var(--newbii-yellow)' },
+  { angle: 96, radius: 200, shape: 'circle', color: 'var(--newbii-pink)' },
+  { angle: 168, radius: 250, shape: 'pentagon', color: 'var(--newbii-orange)' },
+  { angle: 205, radius: 200, shape: 'circle', color: 'var(--newbii-purple)' },
+  { angle: 235, radius: 205, shape: 'circle', color: 'var(--newbii-pink)' },
+  { angle: 262, radius: 250, shape: 'circle', color: 'var(--newbii-pink)' },
+  { angle: 292, radius: 250, shape: 'pentagon', color: 'var(--newbii-yellow)' },
+  { angle: 30, radius: 205, shape: 'pentagon', color: 'var(--newbii-orange)' },
+];
+
+const nodePos = (n: Node) => ({
+  x: CX + n.radius * Math.cos((n.angle * Math.PI) / 180),
+  y: CY - n.radius * Math.sin((n.angle * Math.PI) / 180),
+});
+
 /**
- * Custom orbit-globe: a stylised blue Earth with Africa facing forward,
- * three dotted orbit rings with geometric nodes that rotate slowly,
- * plus two upright role chips.
+ * Interactive orthographic Earth: real continents (Africa-centred), drag to
+ * spin it in any direction, gentle auto-rotation when idle. Three dashed orbit
+ * rings carry slowly-orbiting, hoverable nodes, plus two upright role chips.
  */
 export function OrbitGlobeGraphic() {
   const reduced = useReducedMotion();
+  const pathRef = useRef<SVGPathElement>(null);
+  const nodesRef = useRef<SVGGElement>(null);
 
-  const spin = (duration: number) =>
-    reduced
-      ? {}
-      : {
-          animate: { rotate: 360 },
-          transition: { duration, ease: 'linear', repeat: Infinity },
-        };
+  const { projection, path, landGeo } = useMemo(() => {
+    const projection = geoOrthographic()
+      .scale(R)
+      .translate([CX, CY])
+      .rotate([-20, -6]); // centre roughly on Africa
+    const path = geoPath(projection);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const topo = land110m as any;
+    const landGeo = feature(topo, topo.objects.land);
+    return { projection, path, landGeo };
+  }, []);
+
+  const rotation = useRef<[number, number]>([-20, -6]);
+  const dragging = useRef(false);
+  const nodeAngle = useRef(0);
+  const last = useRef({ x: 0, y: 0 });
+
+  const drawGlobe = useCallback(() => {
+    projection.rotate(rotation.current);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    pathRef.current?.setAttribute('d', path(landGeo as any) ?? '');
+  }, [projection, path, landGeo]);
+
+  // The Earth stays Africa-centred and still until dragged; only the nodes
+  // orbit on their own. (dt is clamped so a throttled/backgrounded tab can't
+  // produce a big jump.)
+  useEffect(() => {
+    drawGlobe();
+    if (reduced) return;
+
+    let raf = 0;
+    let prev = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min(now - prev, 64);
+      prev = now;
+      nodeAngle.current = (nodeAngle.current + dt * 0.006) % 360;
+      nodesRef.current?.setAttribute('transform', `rotate(${nodeAngle.current} ${CX} ${CY})`);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [drawGlobe, reduced]);
+
+  // ---- Drag to spin the Earth ----
+  const onDown = (e: ReactPointerEvent<SVGCircleElement>) => {
+    dragging.current = true;
+    last.current = { x: e.clientX, y: e.clientY };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onMove = (e: ReactPointerEvent<SVGCircleElement>) => {
+    if (!dragging.current) return;
+    const dx = e.clientX - last.current.x;
+    const dy = e.clientY - last.current.y;
+    last.current = { x: e.clientX, y: e.clientY };
+    rotation.current[0] += dx * 0.35;
+    rotation.current[1] = Math.max(-90, Math.min(90, rotation.current[1] - dy * 0.35));
+    drawGlobe();
+  };
+  const onUp = (e: ReactPointerEvent<SVGCircleElement>) => {
+    dragging.current = false;
+    e.currentTarget.releasePointerCapture(e.pointerId);
+  };
 
   return (
-    <div className={styles.globeWrap} aria-hidden="true">
-      <svg viewBox="0 0 520 520" className={styles.globeSvg}>
-        {/* dotted orbit rings */}
-        <circle cx="260" cy="260" r="250" className={styles.orbitDotted} />
-        <circle cx="260" cy="260" r="195" className={styles.orbitDotted} />
-        <circle cx="260" cy="260" r="140" className={styles.orbitDotted} />
+    <div className={styles.globeWrap}>
+      <svg viewBox="0 0 520 520" className={styles.globeSvg} role="img" aria-label="A spinning globe centred on Africa, orbited by community members across roles.">
+        {/* orbit rings */}
+        <circle cx={CX} cy={CY} r={250} className={styles.orbitDotted} />
+        <circle cx={CX} cy={CY} r={200} className={styles.orbitDotted} />
+        <circle cx={CX} cy={CY} r={150} className={styles.orbitDotted} />
 
         {/* Earth */}
-        <g>
-          <circle cx="260" cy="260" r="112" fill="var(--newbii-blue)" />
-          <path
-            fill="var(--newbii-navy)"
-            d="M247 160c14-4 30 2 33 14 3 10-4 18-2 28 2 9 12 14 14 24 3 12-5 22-3 34 2 14 15 24 12 38-2 12-16 18-28 16-10-2-16-12-26-16-11-4-24-2-32-10-8-8-7-22-3-33 4-10 13-17 15-27 2-11-5-22-1-32 4-11 12-24 24-28Z"
-          />
-          <path
-            fill="var(--newbii-navy)"
-            d="M300 178c9-3 20 0 24 8 3 7-2 15 2 21 3 5 11 6 12 12 2 8-6 14-14 13-7-1-11-8-18-10-8-3-18 0-23-6-4-6-1-15 3-21 4-6 7-14 12-17Z"
-            opacity="0.9"
-          />
+        <circle cx={CX} cy={CY} r={R} fill="var(--newbii-blue)" />
+        <path ref={pathRef} fill="var(--newbii-navy)" />
+
+        {/* transparent drag surface over the globe */}
+        <circle
+          cx={CX}
+          cy={CY}
+          r={R}
+          fill="transparent"
+          className={styles.dragSurface}
+          onPointerDown={onDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+        />
+
+        {/* orbiting nodes */}
+        <g ref={nodesRef} aria-hidden="true">
+          {NODES.map((n, i) => {
+            const { x, y } = nodePos(n);
+            return (
+              <g key={i} transform={`translate(${x} ${y})`} className={styles.nodeWrap}>
+                {n.shape === 'pentagon' ? (
+                  <polygon points={PENT} fill={n.color} className={styles.nodeShape} />
+                ) : (
+                  <circle r={10} fill={n.color} className={styles.nodeShape} />
+                )}
+              </g>
+            );
+          })}
         </g>
+
+        {/* static anchor nodes for the two chips */}
+        <polygon points={PENT} transform={`translate(${CX - 150} ${CY - 6})`} fill="var(--newbii-purple)" aria-hidden="true" />
+        <circle cx={CX + 150} cy={CY + 12} r={10} fill="var(--newbii-yellow)" aria-hidden="true" />
       </svg>
-
-      {/* rotating node layers */}
-      <motion.div className={styles.ring} {...spin(42)}>
-        <span className={`${styles.node} ${styles.nodePink}`} style={{ top: '4%', left: '62%' }} />
-        <span className={`${styles.node} ${styles.nodeOrange}`} style={{ top: '30%', left: '96%' }} />
-        <span className={`${styles.node} ${styles.nodePurple}`} style={{ top: '72%', left: '86%' }} />
-        <span className={`${styles.node} ${styles.nodeYellow}`} style={{ top: '95%', left: '46%' }} />
-      </motion.div>
-
-      <motion.div className={styles.ring} {...spin(30)}>
-        <span className={`${styles.node} ${styles.nodePurple}`} style={{ top: '22%', left: '10%' }} />
-        <span className={`${styles.node} ${styles.nodePink}`} style={{ top: '70%', left: '16%' }} />
-        <span className={`${styles.node} ${styles.nodeOrange}`} style={{ top: '50%', left: '90%' }} />
-      </motion.div>
 
       {/* upright role chips */}
       <span className={`${styles.chip} ${styles.chipLeft}`}>

@@ -56,33 +56,28 @@
   opacity: 0.55;
 }
 
-.ring {
-  position: absolute;
-  inset: 0;
+/* Transparent surface over the globe that captures drag-to-spin. */
+.dragSurface {
+  cursor: grab;
+  touch-action: none;
+}
+.dragSurface:active {
+  cursor: grabbing;
 }
 
-.node {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
+/* Orbiting nodes — hoverable. */
+.nodeWrap {
+  cursor: pointer;
 }
 
-.nodePink {
-  background: var(--newbii-pink);
+.nodeShape {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 200ms var(--ease-premium);
 }
-.nodeOrange {
-  background: var(--newbii-orange);
-  border-radius: 4px;
-  clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
-}
-.nodePurple {
-  background: var(--newbii-purple);
-}
-.nodeYellow {
-  background: var(--newbii-yellow);
-  clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+
+.nodeWrap:hover .nodeShape {
+  transform: scale(1.45);
 }
 
 .chip {
