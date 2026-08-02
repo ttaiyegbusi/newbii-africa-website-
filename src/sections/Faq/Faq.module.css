@@ -79,7 +79,8 @@
 .question {
   width: 100%;
   text-align: left;
-  background: var(--newbii-blue-soft);
+  /* deeper blue than the panel */
+  background: #2f56e0;
   color: var(--newbii-white);
   border-radius: 14px;
   padding: 1.1rem 1.4rem;
@@ -90,11 +91,13 @@
 
 .question:hover {
   transform: translateY(-1px);
+  background: #3a61ef;
 }
 
 .questionActive {
-  background: #8aa4ff;
-  color: var(--newbii-navy);
+  /* lighter blue, white text */
+  background: #6e8cff;
+  color: var(--newbii-white);
   font-weight: 600;
 }
 

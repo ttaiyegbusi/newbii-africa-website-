@@ -97,21 +97,24 @@
 
 .socialRow {
   display: flex;
-  gap: clamp(0.5rem, 1.5vw, 1rem);
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .tile {
   display: grid;
   place-items: center;
-  width: clamp(80px, 11vw, 150px);
+  width: clamp(96px, 11vw, 150px);
   aspect-ratio: 1;
   background: var(--newbii-blue);
-  border: 5px solid var(--newbii-white);
+  border: 6px solid var(--newbii-white);
   border-radius: 30px;
   color: #fff;
-  margin-inline: -6px;
+  margin-inline: -16px;
   transition: box-shadow 200ms ease;
+}
+
+.tile:first-child {
+  margin-left: 0;
 }
 
 .tile:hover {

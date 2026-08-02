@@ -81,10 +81,10 @@
 /* ---- Card ---- */
 .card {
   flex: 0 0 auto;
-  width: clamp(300px, 30vw, 440px);
+  width: clamp(320px, 30vw, 440px);
   background: var(--newbii-navy-deep);
   border-radius: 18px;
-  padding: 1.6rem 1.8rem;
+  padding: 1.8rem 2rem;
   display: flex;
   flex-direction: column;
 }
@@ -97,7 +97,7 @@
 }
 
 .name {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--newbii-white);
 }
@@ -106,17 +106,12 @@
   font-size: 1.3rem;
 }
 
-.rule {
-  border: none;
-  border-top: 1px solid var(--newbii-line);
-  margin: 1rem 0;
-}
-
 .quote {
   color: #c9ccdf;
-  font-size: 0.98rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.55;
   flex: 1;
+  margin: 1.4rem 0;
 }
 
 .bottom {

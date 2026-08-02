@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Button } from '@/components/ui/Button';
 import { staggerParent, staggerChild, inViewOnce, EASE_PREMIUM, QA } from '@/lib/motion';
-import { Ring, DiamondSquare, RoundedSquareFrame, Arch, StarSix, Pentagon } from '@/components/shapes';
+import { Ring, DiamondSquare, RoundedSquareFrame, StarSixFrame, Pentagon } from '@/components/shapes';
 import styles from './CommunityBanner.module.css';
 
 const rise = {
@@ -52,16 +52,16 @@ export function CommunityBanner() {
           <RoundedSquareFrame color="var(--newbii-pink)" />
         </motion.div>
         <motion.div custom={3} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sYellow}>
-          <Arch color="var(--newbii-yellow)" />
+          <Ring color="var(--newbii-yellow)" />
         </motion.div>
         <motion.div custom={4} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sPurple}>
-          <StarSix color="var(--newbii-purple)" />
+          <StarSixFrame color="var(--newbii-purple)" weight={26} />
         </motion.div>
         <motion.div custom={5} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sPentagon}>
           <Pentagon color="var(--newbii-light-blue)" />
         </motion.div>
         <motion.div custom={6} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sGreen}>
-          <StarSix color="#5fd68a" />
+          <StarSixFrame color="#5fd68a" weight={26} />
         </motion.div>
       </div>
     </section>

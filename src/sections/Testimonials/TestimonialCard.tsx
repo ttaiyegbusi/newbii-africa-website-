@@ -11,9 +11,7 @@ export function TestimonialCard({ t, ariaHidden }: { t: Testimonial; ariaHidden?
           {t.flag}
         </span>
       </div>
-      <hr className={styles.rule} />
       <blockquote className={styles.quote}>&ldquo;{t.quote}&rdquo;</blockquote>
-      <hr className={styles.rule} />
       <div className={styles.bottom}>
         <span className={styles.role}>{t.role}</span>
         <SocialIcon platform={t.social} className={styles.social} />
