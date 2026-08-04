@@ -1,0 +1,8 @@
+<svg width="180" height="172" viewBox="0 0 180 172" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <mask id="pent" maskUnits="userSpaceOnUse" x="0" y="0" width="180" height="172">
+    <rect width="180" height="172" fill="black" />
+    <path d="M90 4 173.7 64.8 141.7 163.2 38.3 163.2 6.3 64.8Z M90 58A34 34 0 1 0 90 126A34 34 0 1 0 90 58Z" fill="white" fill-rule="evenodd" />
+  </mask>
+  <path d="M90 4 173.7 64.8 141.7 163.2 38.3 163.2 6.3 64.8Z M90 58A34 34 0 1 0 90 126A34 34 0 1 0 90 58Z" fill="#C7EFFF" fill-rule="evenodd" />
+  <path d="M90 4 173.7 64.8 141.7 163.2 38.3 163.2 6.3 64.8Z M90 58A34 34 0 1 0 90 126A34 34 0 1 0 90 58Z" fill="none" stroke="white" stroke-opacity="0.5" stroke-width="8" stroke-linejoin="round" mask="url(#pent)" />
+</svg>

@@ -1,10 +1,21 @@
+import { lazy, Suspense, useRef } from 'react';
+import { useInView } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Reveal } from '@/components/layout/Reveal';
 import { DotMotif } from '@/components/ui/DotMotif';
-import { OrbitGlobeGraphic } from './OrbitGlobeGraphic';
+import { QA } from '@/lib/motion';
 import styles from './Backstory.module.css';
 
+// d3-geo + the world map data only matter for this one graphic, and it lives
+// well below the fold — split it out and mount it only when scrolled near.
+const OrbitGlobeGraphic = lazy(() =>
+  import('./OrbitGlobeGraphic').then((m) => ({ default: m.OrbitGlobeGraphic }))
+);
+
 export function Backstory() {
+  const graphicRef = useRef<HTMLDivElement>(null);
+  const near = useInView(graphicRef, { once: true, margin: '400px' });
+
   return (
     <section className={styles.section} id="backstory">
       <Container>
@@ -22,7 +33,15 @@ export function Backstory() {
           </Reveal>
 
           <Reveal className={styles.graphic} delay={0.15}>
-            <OrbitGlobeGraphic />
+            <div ref={graphicRef}>
+              {near || QA ? (
+                <Suspense fallback={<div className={styles.globeWrap} />}>
+                  <OrbitGlobeGraphic />
+                </Suspense>
+              ) : (
+                <div className={styles.globeWrap} />
+              )}
+            </div>
           </Reveal>
         </div>
       </Container>

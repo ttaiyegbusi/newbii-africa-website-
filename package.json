@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@types/d3-geo": "^3.1.0",
     "@types/matter-js": "^0.19.8",
     "@types/node": "^20.19.43",

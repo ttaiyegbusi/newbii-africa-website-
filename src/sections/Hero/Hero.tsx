@@ -1,9 +1,15 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { staggerParent, staggerChild, EASE_PREMIUM, QA, qaInitial } from '@/lib/motion';
 import { AudiencePills } from './AudiencePills';
-import { HeroPhysics } from './HeroPhysics';
 import styles from './Hero.module.css';
+
+// matter.js is heavy and purely decorative — split it into its own chunk that
+// loads after the critical hero content has painted.
+const HeroPhysics = lazy(() =>
+  import('./HeroPhysics').then((m) => ({ default: m.HeroPhysics }))
+);
 
 // Served from /public — referenced by URL, not imported.
 const chefImg = '/assets/images/chef.png';
@@ -70,7 +76,9 @@ export function Hero() {
       </div>
 
       {/* Physics sandbox — the four brand shapes drop in and can be tossed around. */}
-      <HeroPhysics />
+      <Suspense fallback={null}>
+        <HeroPhysics />
+      </Suspense>
     </section>
   );
 }

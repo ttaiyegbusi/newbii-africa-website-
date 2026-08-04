@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Button } from '@/components/ui/Button';
 import { staggerParent, staggerChild, inViewOnce, EASE_PREMIUM, QA } from '@/lib/motion';
-import { Ring, DiamondSquare, RoundedSquareFrame, StarSixFrame, Pentagon } from '@/components/shapes';
 import styles from './CommunityBanner.module.css';
 
 const rise = {
@@ -13,6 +12,18 @@ const rise = {
     transition: { duration: 0.7, ease: EASE_PREMIUM, delay: 0.1 + i * 0.09 },
   }),
 };
+
+// The same brand shape SVGs used in the hero (holes + white bevel), recoloured
+// for the banner cluster.
+const SHAPES = [
+  { cls: 'sCyanRing', src: '/assets/shapes/ring-cyan.svg' },
+  { cls: 'sOrange', src: '/assets/shapes/star.svg' },
+  { cls: 'sPink', src: '/assets/shapes/rectangle.svg' },
+  { cls: 'sYellow', src: '/assets/shapes/circle.svg' },
+  { cls: 'sPurple', src: '/assets/shapes/light.svg' },
+  { cls: 'sPentagon', src: '/assets/shapes/pentagon-cyan.svg' },
+  { cls: 'sGreen', src: '/assets/shapes/star-green.svg' },
+] as const;
 
 export function CommunityBanner() {
   return (
@@ -42,27 +53,19 @@ export function CommunityBanner() {
 
       {/* cropped shape cluster, bottom-right */}
       <div className={styles.shapes} aria-hidden="true">
-        <motion.div custom={0} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sCyanRing}>
-          <Ring color="var(--newbii-cyan)" />
-        </motion.div>
-        <motion.div custom={1} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sOrange}>
-          <DiamondSquare color="var(--newbii-orange)" />
-        </motion.div>
-        <motion.div custom={2} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sPink}>
-          <RoundedSquareFrame color="var(--newbii-pink)" />
-        </motion.div>
-        <motion.div custom={3} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sYellow}>
-          <Ring color="var(--newbii-yellow)" />
-        </motion.div>
-        <motion.div custom={4} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sPurple}>
-          <StarSixFrame color="var(--newbii-purple)" weight={26} />
-        </motion.div>
-        <motion.div custom={5} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sPentagon}>
-          <Pentagon color="var(--newbii-light-blue)" />
-        </motion.div>
-        <motion.div custom={6} variants={rise} initial={QA ? 'visible' : 'hidden'} whileInView="visible" viewport={inViewOnce} className={styles.sGreen}>
-          <StarSixFrame color="#5fd68a" weight={26} />
-        </motion.div>
+        {SHAPES.map((shape, i) => (
+          <motion.div
+            key={shape.cls}
+            custom={i}
+            variants={rise}
+            initial={QA ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={inViewOnce}
+            className={styles[shape.cls]}
+          >
+            <img src={shape.src} alt="" draggable={false} />
+          </motion.div>
+        ))}
       </div>
     </section>
   );

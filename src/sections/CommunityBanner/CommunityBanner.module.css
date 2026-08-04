@@ -51,6 +51,12 @@
   position: absolute;
 }
 
+.shapes img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .sCyanRing {
   width: 150px;
   left: 4%;
