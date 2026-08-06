@@ -1,3 +1,4 @@
+import { MotionConfig } from 'framer-motion';
 import { Header } from './sections/Header/Header';
 import { Hero } from './sections/Hero/Hero';
 import { Stats } from './sections/Stats/Stats';
@@ -14,9 +15,13 @@ import { PixelRailDivider } from './components/layout/PixelRailDivider';
 
 export default function App() {
   return (
-    <>
+    // reducedMotion="user" makes every Framer animation honour the OS setting.
+    <MotionConfig reducedMotion="user">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <PixelRailDivider variant="down" />
         <Stats />
@@ -31,6 +36,6 @@ export default function App() {
         <PixelRailDivider variant="up" />
         <Footer />
       </main>
-    </>
+    </MotionConfig>
   );
 }

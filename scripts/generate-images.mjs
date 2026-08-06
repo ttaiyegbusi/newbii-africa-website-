@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
+import sharp from 'sharp';
 
 const pub = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 
@@ -21,3 +22,9 @@ const render = (svgPath, outPath, width) => {
 render('og-image.svg', 'og-image.png', 1200);
 render('favicon.svg', 'apple-touch-icon.png', 180);
 render('favicon.svg', 'favicon-32.png', 32);
+
+// Optimised WebP of the hero photo (PNG kept as the <picture> fallback).
+await sharp(resolve(pub, 'assets/images/chef.png'))
+  .webp({ quality: 82 })
+  .toFile(resolve(pub, 'assets/images/chef.webp'));
+console.log('✓ assets/images/chef.webp');

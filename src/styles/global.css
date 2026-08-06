@@ -109,6 +109,23 @@ h4 {
   );
 }
 
+/* Skip-to-content link — hidden until keyboard-focused */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -4rem;
+  z-index: 200;
+  background: var(--newbii-white);
+  color: var(--newbii-navy);
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: top 180ms var(--ease-premium);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
 /* Visually-hidden but screen-reader accessible */
 .sr-only {
   position: absolute;

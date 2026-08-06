@@ -64,12 +64,15 @@ export function Hero() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: EASE_PREMIUM, delay: 0.2 }}
             >
-              <img
-                src={chefImg}
-                alt="A chef standing confidently in a commercial kitchen, with career labels reading Chef transitioning to DevOps Engineer."
-                width={760}
-                height={980}
-              />
+              <picture>
+                <source srcSet="/assets/images/chef.webp" type="image/webp" />
+                <img
+                  src={chefImg}
+                  alt="A chef standing confidently in a commercial kitchen, with career labels reading Chef transitioning to DevOps Engineer."
+                  width={760}
+                  height={980}
+                />
+              </picture>
             </motion.div>
           </div>
         </div>
