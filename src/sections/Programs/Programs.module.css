@@ -59,9 +59,10 @@
   margin-top: auto;
 }
 
-/* Small screens: forget the fan, stack the cards in normal flow.
-   (transform:none overrides Framer's inline transform.) */
-@media (max-width: 899px) {
+/* Narrow screens: forget the fan, stack the cards in normal flow.
+   (transform:none overrides Framer's inline transform.) The fan needs room
+   to spread the cards fully, so it only runs at wide widths (>=1024px). */
+@media (max-width: 1023px) {
   .deck {
     position: static;
     height: auto;

@@ -18,9 +18,7 @@ export function Programs() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <ProgramCardDeck />
-        </Reveal>
+        <ProgramCardDeck />
       </Container>
     </section>
   );
