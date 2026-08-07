@@ -1,33 +1,40 @@
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
 import { Button } from '@/components/ui/Button';
-import { staggerParent, staggerChild, inViewOnce, EASE_PREMIUM, QA } from '@/lib/motion';
+import { staggerParent, staggerChild, inViewOnce, QA } from '@/lib/motion';
 import styles from './CommunityBanner.module.css';
 
-const rise = {
-  hidden: { opacity: 0, y: 28 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: EASE_PREMIUM, delay: 0.1 + i * 0.09 },
-  }),
-};
-
-// The same brand shape SVGs used in the hero (holes + white bevel), recoloured
-// for the banner cluster.
-const SHAPES = [
-  { cls: 'sCyanRing', src: '/assets/shapes/ring-cyan.svg' },
-  { cls: 'sOrange', src: '/assets/shapes/star.svg' },
-  { cls: 'sPink', src: '/assets/shapes/rectangle.svg' },
-  { cls: 'sYellow', src: '/assets/shapes/circle.svg' },
-  { cls: 'sPurple', src: '/assets/shapes/light.svg' },
-  { cls: 'sPentagon', src: '/assets/shapes/pentagon-cyan.svg' },
-  { cls: 'sGreen', src: '/assets/shapes/star-green.svg' },
-] as const;
+// matter.js is heavy — load the sandbox as its own chunk, only once the banner
+// is near the viewport (so the shapes drop in as you scroll to them).
+const BannerPhysics = lazy(() =>
+  import('./BannerPhysics').then((m) => ({ default: m.BannerPhysics })),
+);
 
 export function CommunityBanner() {
+  const sectionRef = useRef<HTMLElement>(null);
+  // Under QA render immediately (the IntersectionObserver is throttled there).
+  const [mounted, setMounted] = useState(QA);
+
+  useEffect(() => {
+    if (mounted) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMounted(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '300px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [mounted]);
+
   return (
-    <section className={`${styles.section} texture texture--onBlue`} id="banner">
+    <section className={`${styles.section} texture texture--onBlue`} id="banner" ref={sectionRef}>
       <Container>
         <motion.div
           className={styles.content}
@@ -51,22 +58,12 @@ export function CommunityBanner() {
         </motion.div>
       </Container>
 
-      {/* cropped shape cluster, bottom-right */}
-      <div className={styles.shapes} aria-hidden="true">
-        {SHAPES.map((shape, i) => (
-          <motion.div
-            key={shape.cls}
-            custom={i}
-            variants={rise}
-            initial={QA ? 'visible' : 'hidden'}
-            whileInView="visible"
-            viewport={inViewOnce}
-            className={styles[shape.cls]}
-          >
-            <img src={shape.src} alt="" draggable={false} />
-          </motion.div>
-        ))}
-      </div>
+      {/* physics sandbox — shapes fall and stack in the right-hand play zone */}
+      {mounted && (
+        <Suspense fallback={null}>
+          <BannerPhysics />
+        </Suspense>
+      )}
     </section>
   );
 }

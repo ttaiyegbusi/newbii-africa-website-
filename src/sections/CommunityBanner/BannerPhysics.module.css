@@ -1,0 +1,42 @@
+/* Right-side play zone: shapes fall and stack here, clear of the copy. */
+.zone {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(58%, 720px);
+  z-index: 1;
+  pointer-events: none; /* let clicks fall through to the section */
+}
+
+.shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto; /* but the shapes themselves are grabbable */
+  cursor: grab;
+  touch-action: none;
+  will-change: transform;
+}
+
+.shape img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+/* Reduced-motion / QA: a settled cluster, no engine. */
+.still {
+  position: absolute;
+}
+
+@media (max-width: 900px) {
+  .zone {
+    width: 70%;
+  }
+}
