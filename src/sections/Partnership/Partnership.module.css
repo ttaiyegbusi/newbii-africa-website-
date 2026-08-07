@@ -44,11 +44,12 @@
   position: relative;
   overflow: hidden;
   padding: clamp(2rem, 3vw, 3rem);
-  min-height: 400px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 3.5rem;
+  /* title + body sit together near the top (not pushed to opposite edges) */
+  justify-content: flex-start;
+  gap: clamp(2.5rem, 4vw, 3.5rem);
 }
 
 .panelTitle {
