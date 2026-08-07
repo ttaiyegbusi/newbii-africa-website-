@@ -50,7 +50,8 @@
 
 .answerBox {
   background: var(--newbii-panel-soft);
-  border-radius: 18px;
+  /* squared-off bottom-left corner (TL TR BR BL), mirroring the question pills */
+  border-radius: 18px 18px 18px 0;
   padding: 1.6rem;
   color: #d4d7ea;
   font-size: 1.15rem;
@@ -83,7 +84,8 @@
   /* deeper blue than the panel */
   background: #2f56e0;
   color: var(--newbii-white);
-  border-radius: 14px;
+  /* squared-off bottom-right corner (TL TR BR BL) */
+  border-radius: 14px 14px 0 14px;
   padding: 1.1rem 1.4rem;
   font-size: 1.1rem;
   font-weight: 500;
