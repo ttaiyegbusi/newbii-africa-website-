@@ -15,16 +15,16 @@ export const qaInitial = <T>(hidden: T): T | false => (QA ? false : hidden);
 
 /** Standard "rise + fade" entrance for a single block. */
 export const revealUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 70 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.64, ease: EASE_PREMIUM },
+    transition: { duration: 2.0, ease: EASE_PREMIUM },
   },
 };
 
 /** Parent that staggers its children on entrance. */
-export const staggerParent = (stagger = 0.09, delayChildren = 0.05): Variants => ({
+export const staggerParent = (stagger = 0.18, delayChildren = 0.05): Variants => ({
   hidden: {},
   visible: {
     transition: { staggerChildren: stagger, delayChildren },
@@ -33,13 +33,13 @@ export const staggerParent = (stagger = 0.09, delayChildren = 0.05): Variants =>
 
 /** Child item for use inside a `staggerParent`. */
 export const staggerChild: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 56 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: EASE_PREMIUM },
+    transition: { duration: 1.7, ease: EASE_PREMIUM },
   },
 };
 
-/** Shared viewport config so reveals fire once, slightly before fully in view. */
-export const inViewOnce = { once: true, amount: 0.25 } as const;
+/** Shared viewport config so reveals fire once, as the block is reached. */
+export const inViewOnce = { once: true, amount: 0.32 } as const;
