@@ -6,7 +6,10 @@
 .grid {
   display: grid;
   grid-template-columns: 42% 1fr;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  /* thin channel between the left card and the right stack (matches the design);
+     a normal gap only applies when they stack vertically on mobile */
+  column-gap: clamp(0.5rem, 1vw, 0.85rem);
+  row-gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: start;
 }
 
@@ -44,12 +47,12 @@
   position: relative;
   overflow: hidden;
   padding: clamp(2rem, 3vw, 3rem);
-  min-height: 250px;
   display: flex;
   flex-direction: column;
-  /* title + body sit together near the top (not pushed to opposite edges) */
+  /* title at the top, body pushed well down (large gap) — matches the design,
+     which sits the copy in the lower half of each panel */
   justify-content: flex-start;
-  gap: clamp(2.5rem, 4vw, 3.5rem);
+  gap: clamp(4rem, 7vw, 7rem);
 }
 
 .panelTitle {
