@@ -41,7 +41,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1rem, 1.8vw, 1.6rem);
-  max-width: 700px;
+  max-width: 700px; /* matches the design's card block width */
   margin: 0 auto;
 }
 
@@ -83,16 +83,11 @@
   line-height: 1.5;
 }
 
-/* Full-width cards: keep the copy on the left half so it never runs under the
+/* Full-width cards: keep the copy on the left so it never runs under the
    shape sitting on the right. */
 .full .title,
 .full .body {
-  max-width: 56%;
-}
-
-/* Half cards: leave the bottom-right free for the corner shape. */
-.grow .body {
-  max-width: 78%;
+  max-width: 60%;
 }
 
 /* ---- Decorative shapes (real brand SVGs, cropped by the card edges) ---- */
@@ -108,33 +103,34 @@
   height: auto;
 }
 
-/* LEARN: orange diamond on the right, vertically centred, cropped right */
+/* LEARN: orange diamond on the right, vertically centred, cropped by the right
+   edge (top & bottom points spill past the card). */
 .learn .shape {
-  width: 320px;
-  right: -68px;
+  width: 300px;
+  right: -50px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* CONNECT: yellow ring cropped into the top-right corner */
+/* CONNECT: yellow ring hangs down from the TOP edge, right of centre. */
 .connect .shape {
-  width: 165px;
-  top: -48px;
-  right: -46px;
+  width: 160px;
+  top: -82px;
+  right: 6px;
 }
 
-/* GROW: purple star cropped into the bottom-right corner */
+/* GROW: purple star pokes up from the BOTTOM edge, right of centre. */
 .grow .shape {
-  width: 205px;
-  right: -46px;
-  bottom: -52px;
+  width: 200px;
+  right: -4px;
+  bottom: -114px;
 }
 
-/* LEAD: pink rounded square cropped into the bottom-right */
+/* LEAD: pink rounded square cropped into the bottom-right corner, tilted. */
 .lead .shape {
-  width: 285px;
-  right: -34px;
-  bottom: -84px;
+  width: 250px;
+  right: -24px;
+  bottom: -70px;
 }
 
 @media (max-width: 720px) {
