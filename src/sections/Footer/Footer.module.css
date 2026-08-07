@@ -97,7 +97,7 @@
 
 .socialRow {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .tile {
@@ -109,12 +109,22 @@
   border: 6px solid var(--newbii-white);
   border-radius: 30px;
   color: #fff;
-  margin-inline: -16px;
+  margin-inline: -6px;
+  cursor: grab;
+  touch-action: none;
   transition: box-shadow 200ms ease;
+}
+
+.tile:active {
+  cursor: grabbing;
 }
 
 .tile:first-child {
   margin-left: 0;
+}
+
+.tile:last-child {
+  margin-right: 0;
 }
 
 .tile:hover {

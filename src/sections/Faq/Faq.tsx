@@ -27,25 +27,7 @@ export function Faq() {
 
         <Reveal delay={0.1}>
           <div className={styles.panel}>
-            {/* Left: answer panel (desktop) */}
-            <div className={styles.answerPanel}>
-              <h3 className={`display ${styles.answerTitle}`}>Answers are here</h3>
-              <div className={styles.answerBox}>
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={active}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.28 }}
-                  >
-                    {faqs[active].answer}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Right: questions */}
+            {/* Left: questions (wide blue card) */}
             <div className={styles.questionPanel}>
               <h3 className={`display ${styles.questionTitle}`}>Questions</h3>
               <ul className={styles.questionList}>
@@ -68,6 +50,24 @@ export function Faq() {
                   );
                 })}
               </ul>
+            </div>
+
+            {/* Right: answer panel (desktop) — on the dark panel, no card */}
+            <div className={styles.answerPanel}>
+              <h3 className={`display ${styles.answerTitle}`}>Answers are here</h3>
+              <div className={styles.answerBox}>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={active}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.28 }}
+                  >
+                    {faqs[active].answer}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </Reveal>

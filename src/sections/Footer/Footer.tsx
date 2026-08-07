@@ -50,6 +50,17 @@ export function Footer() {
               viewport={inViewOnce}
               transition={{ duration: 0.5, ease: EASE_PREMIUM, delay: i * 0.1 }}
               whileHover={{ rotate: 0, y: -6 }}
+              drag
+              dragSnapToOrigin
+              dragElastic={0.6}
+              dragMomentum={false}
+              whileDrag={{ scale: 1.12, zIndex: 5 }}
+              draggable={false}
+              // Placeholder links go nowhere — don't let a click jump to top.
+              // Real hrefs (added later) navigate normally.
+              onClick={(e) => {
+                if (s.href === '#') e.preventDefault();
+              }}
             >
               <SocialIcon platform={s.platform} className={styles.tileIcon} />
             </motion.a>
