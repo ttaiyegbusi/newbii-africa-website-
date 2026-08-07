@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { QA } from '@/lib/motion';
 import styles from './BannerPhysics.module.css';
 
@@ -31,12 +30,15 @@ const SHAPES: ShapeDef[] = [
 /**
  * The seven brand shapes as a physics sandbox in the right side of the banner:
  * they drop in from above under gravity, collide with each other and the
- * floor/walls, stack up, and can be grabbed, dragged, and thrown. Honours
- * reduced-motion (and QA) by rendering a static settled cluster instead.
+ * floor/walls, stack up, and can be grabbed, dragged, and thrown. Runs for
+ * everyone (per the design intent); only QA renders a static settled cluster
+ * so automated screenshots aren't blank.
  */
 export function BannerPhysics() {
-  const reduced = useReducedMotion();
-  const still = reduced || QA;
+  // Physics runs for everyone (per the design intent). `still` is only true
+  // under QA so automated screenshots get a settled cluster instead of an
+  // rAF-frozen empty zone.
+  const still = QA;
   const zoneRef = useRef<HTMLDivElement>(null);
   const shapeRefs = useRef<(HTMLDivElement | null)[]>([]);
 

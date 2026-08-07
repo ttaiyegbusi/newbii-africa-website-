@@ -68,22 +68,37 @@
 }
 
 .title {
+  position: relative;
+  z-index: 1; /* stay above the decorative shape */
   font-size: clamp(2rem, 3vw, 2.8rem);
   color: var(--newbii-white);
   margin-bottom: 1.25rem;
 }
 
 .body {
+  position: relative;
+  z-index: 1; /* stay above the decorative shape */
   color: #c4c7dd;
   font-size: clamp(0.98rem, 1.05vw, 1.1rem);
   line-height: 1.5;
-  max-width: 60ch;
+}
+
+/* Full-width cards: keep the copy on the left half so it never runs under the
+   shape sitting on the right. */
+.full .title,
+.full .body {
+  max-width: 56%;
+}
+
+/* Half cards: leave the bottom-right free for the corner shape. */
+.grow .body {
+  max-width: 78%;
 }
 
 /* ---- Decorative shapes (real brand SVGs, cropped by the card edges) ---- */
 .shape {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -93,33 +108,33 @@
   height: auto;
 }
 
-/* LEARN: orange burst on the right, vertically centred, cropped right */
+/* LEARN: orange diamond on the right, vertically centred, cropped right */
 .learn .shape {
-  width: 290px;
-  right: -55px;
+  width: 320px;
+  right: -68px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-/* CONNECT: yellow circle tucked into the top-right corner */
+/* CONNECT: yellow ring cropped into the top-right corner */
 .connect .shape {
-  width: 155px;
-  top: -55px;
-  right: -45px;
+  width: 165px;
+  top: -48px;
+  right: -46px;
 }
 
-/* GROW: purple star tucked into the bottom-right corner */
+/* GROW: purple star cropped into the bottom-right corner */
 .grow .shape {
-  width: 190px;
-  right: -35px;
-  bottom: -55px;
+  width: 205px;
+  right: -46px;
+  bottom: -52px;
 }
 
-/* LEAD: pink rounded square in the bottom-right */
+/* LEAD: pink rounded square cropped into the bottom-right */
 .lead .shape {
-  width: 250px;
-  right: 0;
-  bottom: -80px;
+  width: 285px;
+  right: -34px;
+  bottom: -84px;
 }
 
 @media (max-width: 720px) {

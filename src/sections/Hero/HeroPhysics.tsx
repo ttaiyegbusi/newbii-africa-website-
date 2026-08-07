@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { QA } from '@/lib/motion';
 import styles from './HeroPhysics.module.css';
 
 interface ShapeDef {
@@ -25,16 +25,18 @@ const SHAPES: ShapeDef[] = [
 /**
  * The four brand shapes as a small physics sandbox confined to the hero:
  * they drop in from above under gravity, collide with each other and the
- * floor/walls, and can be grabbed, dragged, and thrown. Honours reduced-motion
- * by rendering them statically instead.
+ * floor/walls, and can be grabbed, dragged, and thrown. Runs for everyone;
+ * only QA renders them statically so automated screenshots aren't blank.
  */
 export function HeroPhysics() {
-  const reduced = useReducedMotion();
+  // Physics runs for everyone; only QA renders a static cluster so automated
+  // screenshots aren't blank (the preview throttles rAF).
+  const still = QA;
   const zoneRef = useRef<HTMLDivElement>(null);
   const shapeRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (reduced) return;
+    if (still) return;
     const zone = zoneRef.current;
     if (!zone) return;
 
@@ -172,7 +174,7 @@ export function HeroPhysics() {
       Composite.clear(engine.world, false);
       Engine.clear(engine);
     };
-  }, [reduced]);
+  }, [still]);
 
   return (
     <div className={styles.zone} ref={zoneRef} aria-hidden="true">
@@ -182,7 +184,7 @@ export function HeroPhysics() {
           ref={(el) => {
             shapeRefs.current[i] = el;
           }}
-          className={`${styles.shape} ${reduced ? styles[`static_${s.key}`] : ''}`}
+          className={`${styles.shape} ${still ? styles[`static_${s.key}`] : ''}`}
           style={{ width: s.w, height: s.h }}
         >
           <img src={s.src} alt="" draggable={false} width={s.w} height={s.h} />
