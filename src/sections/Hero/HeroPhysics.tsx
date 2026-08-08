@@ -20,6 +20,9 @@ const SHAPES: ShapeDef[] = [
   { key: 'circle', src: '/assets/shapes/circle.svg', w: 112, h: 112, rf: 0.92 }, // yellow ring
   { key: 'rectangle', src: '/assets/shapes/rectangle.svg', w: 130, h: 130, rf: 0.72 }, // pink square
   { key: 'light', src: '/assets/shapes/light.svg', w: 116, h: 134, rf: 0.66 }, // purple star
+  { key: 'cyanRing', src: '/assets/shapes/banner-cyan.svg', w: 116, h: 116, rf: 0.9 }, // cyan ring
+  { key: 'greenStar', src: '/assets/shapes/banner-green.svg', w: 116, h: 129, rf: 0.58 }, // green star
+  { key: 'pentagon', src: '/assets/shapes/banner-pentagon.svg', w: 118, h: 119, rf: 0.8 }, // cyan pentagon
 ];
 
 /**
@@ -60,8 +63,9 @@ export function HeroPhysics() {
     // One circular body per shape, dropped from above with a horizontal spread.
     const bodies = SHAPES.map((s, i) => {
       const r = (Math.min(s.w, s.h) / 2) * s.rf;
-      const startX = width * (0.4 + i * 0.14);
-      const startY = -120 - i * 150;
+      // spread evenly across the hero width, with a little jitter per shape
+      const startX = width * ((i + 0.5) / SHAPES.length) + (i % 2 ? 24 : -24);
+      const startY = -120 - i * 130;
       return Bodies.circle(startX, startY, r, {
         restitution: 0.5,
         friction: 0.02,

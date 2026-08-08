@@ -49,3 +49,15 @@
   cursor: default;
   transform: translate(calc(70% + 470px), 210px);
 }
+.static_cyanRing {
+  cursor: default;
+  transform: translate(calc(70% + 250px), 360px);
+}
+.static_greenStar {
+  cursor: default;
+  transform: translate(calc(70% + 540px), 300px);
+}
+.static_pentagon {
+  cursor: default;
+  transform: translate(calc(70% + 300px), 210px);
+}
